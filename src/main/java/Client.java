@@ -1,3 +1,8 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,11 +21,19 @@ public class Client {
 
             System.out.println(reader.readLine());
             writer.println(scanner.nextLine());
-            System.out.println(reader.readLine());
+            System.out.println(getJson(reader.readLine()));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public static String getJson(String json) {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        JsonParser jsonParser = new JsonParser();
+        JsonElement jsonElement = jsonParser.parse(json);
+        return gson.toJson(jsonElement);
     }
 }
