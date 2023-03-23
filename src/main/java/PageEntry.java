@@ -18,12 +18,18 @@ public class PageEntry implements Comparable<PageEntry> {
         return "PageEntry { pdf = " + pdfName
                 + ", page = " + page
                 + ", count = " + count
-                + " }, \n";
+                + " }";
     }
 
     @Override
-    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     public int compareTo(PageEntry o) {
-        return 0;
+        int result = o.count - this.count;
+        if (result == 0) {
+            result = this.pdfName.compareTo(o.pdfName);
+            if (result == 0) {
+                result = this.page - o.page;
+            }
+        }
+        return result;
     }
 }
