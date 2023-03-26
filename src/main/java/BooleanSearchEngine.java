@@ -55,6 +55,7 @@ public class BooleanSearchEngine implements SearchEngine {
             pageEntryList = new ArrayList<>();
         }
         pageEntryList.add(pageEntry);
+        Collections.sort(pageEntryList);
         database.put(key, pageEntryList);
     }
 }
