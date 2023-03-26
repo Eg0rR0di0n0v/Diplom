@@ -1,6 +1,7 @@
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 public class BooleanSearchEngine implements SearchEngine {
     private final Map<String, List<PageEntry>> database = new HashMap<>();
     private String pdfName;
-    public BooleanSearchEngine(File pdfsDir) throws IOException {
+    public BooleanSearchEngine(@NotNull File pdfsDir) throws IOException {
         for (File pdf : Objects.requireNonNull(pdfsDir.listFiles())) {
             pdfName = pdf.getName();
             PdfDocument doc = new PdfDocument(new PdfReader(pdf));
@@ -43,9 +44,7 @@ public class BooleanSearchEngine implements SearchEngine {
     }
     @Override
     public List<PageEntry> search(String word) {
-        List<PageEntry> searchWord = database.get(word.toLowerCase());
-        Collections.sort(searchWord);
-        return searchWord;
+        return database.get(word.toLowerCase());
     }
     public void pageMapPut(int page, int count, String key) {
         PageEntry pageEntry = new PageEntry(pdfName, page, count);
